@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import CountdownPill from "../UI/CountdownPill";
 
 function NextArrow({ onClick }) {
   return (
@@ -68,7 +69,7 @@ const NewItems = () => {
     const fetchNewItems = async () => {
       try {
         const response = await fetch(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems",
         );
 
         if (!response.ok) {
@@ -98,33 +99,33 @@ const NewItems = () => {
   }, []);
 
   const sliderSettings = {
-      dots: false,
-      arrows: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      swipeToSlide: true,
-      adaptiveHeight: false,
-      nextArrow: <NextArrow />,
-      prevArrow: <PrevArrow />,
-      responsive: [
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    adaptiveHeight: false,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
         },
-        {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
-      ],
-    };
+      },
+    ],
+  };
 
   if (loading) {
     return (
@@ -232,9 +233,11 @@ const NewItems = () => {
                         </Link>
                       </div>
 
-                      <div className="de_countdown new-items-countdown">
-                        {formatTimeLeft(item.expiryDate, now)}
-                      </div>
+                      <CountdownPill
+                        expiryDate={item.expiryDate}
+                        now={now}
+                        className="new-items-countdown"
+                      />
 
                       <div className="nft__item_wrap">
                         <div className="nft__item_extra">
