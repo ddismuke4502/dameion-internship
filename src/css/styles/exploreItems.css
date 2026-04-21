@@ -1,0 +1,90 @@
+.explore-filter-wrap {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.explore-filter-wrap #filter-items {
+  min-width: 225px;
+}
+
+.explore-skeleton-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 18px 18px 20px;
+  margin-bottom: 30px;
+}
+
+.explore-skeleton-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.explore-skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.explore-skeleton-pill {
+  width: 124px;
+  height: 40px;
+  border-radius: 999px;
+}
+
+.explore-skeleton-image {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+.explore-skeleton-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.explore-skeleton-line {
+  border-radius: 8px;
+}
+
+.explore-skeleton-line--title {
+  width: 120px;
+  height: 16px;
+}
+
+.explore-skeleton-line--price {
+  width: 80px;
+  height: 14px;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
+  background-size: 200% 100%;
+  animation: exploreShimmer 1.4s infinite linear;
+}
+
+@keyframes exploreShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .explore-skeleton-image {
+    height: 280px;
+  }
+}
+
+@media (max-width: 575px) {
+  .explore-skeleton-image {
+    height: 260px;
+  }
+}
