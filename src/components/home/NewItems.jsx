@@ -29,27 +29,6 @@ function PrevArrow({ onClick }) {
   );
 }
 
-function formatTimeLeft(expiryDate, now) {
-  const end = new Date(expiryDate).getTime();
-
-  if (Number.isNaN(end)) {
-    return "";
-  }
-
-  const diff = end - now;
-
-  if (diff <= 0) {
-    return "Ended";
-  }
-
-  const totalSeconds = Math.floor(diff / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${hours}h ${minutes}m ${seconds}s`;
-}
-
 function formatPrice(item) {
   const rawPrice =
     item.price ?? item.ethPrice ?? item.amount ?? item.currentPrice ?? "0.00";
