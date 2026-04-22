@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import CountdownPill from "../UI/CountdownPill";
 
 function NextArrow({ onClick }) {
   return (
@@ -28,27 +29,6 @@ function PrevArrow({ onClick }) {
   );
 }
 
-function formatTimeLeft(expiryDate, now) {
-  const end = new Date(expiryDate).getTime();
-
-  if (Number.isNaN(end)) {
-    return "";
-  }
-
-  const diff = end - now;
-
-  if (diff <= 0) {
-    return "Ended";
-  }
-
-  const totalSeconds = Math.floor(diff / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${hours}h ${minutes}m ${seconds}s`;
-}
-
 function formatPrice(item) {
   const rawPrice =
     item.price ?? item.ethPrice ?? item.amount ?? item.currentPrice ?? "0.00";
@@ -68,7 +48,7 @@ const NewItems = () => {
     const fetchNewItems = async () => {
       try {
         const response = await fetch(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems",
         );
 
         if (!response.ok) {
@@ -98,33 +78,33 @@ const NewItems = () => {
   }, []);
 
   const sliderSettings = {
-      dots: false,
-      arrows: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      swipeToSlide: true,
-      adaptiveHeight: false,
-      nextArrow: <NextArrow />,
-      prevArrow: <PrevArrow />,
-      responsive: [
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    adaptiveHeight: false,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
         },
-        {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
-      ],
-    };
+      },
+    ],
+  };
 
   if (loading) {
     return (
@@ -232,9 +212,11 @@ const NewItems = () => {
                         </Link>
                       </div>
 
-                      <div className="de_countdown new-items-countdown">
-                        {formatTimeLeft(item.expiryDate, now)}
-                      </div>
+                      <CountdownPill
+                        expiryDate={item.expiryDate}
+                        now={now}
+                        className="new-items-countdown"
+                      />
 
                       <div className="nft__item_wrap">
                         <div className="nft__item_extra">
