@@ -117,7 +117,7 @@ const ExploreItems = () => {
         {Array.from({ length: 8 }).map((_, index) => (
           <div
             key={index}
-            className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
+            className="d-item explore-skeleton-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
           >
             <div className="nft__item explore-skeleton-card">
               <div className="explore-skeleton-top">
