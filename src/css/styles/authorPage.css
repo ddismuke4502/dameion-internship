@@ -1,9 +1,9 @@
 .author-page {
-  padding-bottom: 40px;
+  padding-bottom: 60px;
 }
 
-.author-hero,
-.author-hero-skeleton {
+.author-page .author-hero,
+.author-page .author-hero-skeleton {
   width: 100%;
   height: 320px;
   background-size: cover;
@@ -11,48 +11,67 @@
   background-repeat: no-repeat;
 }
 
-.author-hero-skeleton {
+.author-page .author-hero-skeleton {
   background-color: #ececec;
 }
 
-.author-profile-card,
-.author-profile-skeleton {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: -70px;
-  margin-bottom: 40px;
+.author-page .author-profile-section {
+  margin-top: -78px;
   position: relative;
   z-index: 2;
 }
 
-.author-profile-main {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  min-width: 0;
+.author-page .author-profile-card,
+.author-page .author-profile-skeleton {
+  margin-bottom: 34px;
 }
 
-.author-profile-avatar-wrap {
+.author-page .author-profile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.author-page .author-profile-left {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.author-page .author-profile-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  justify-content: flex-end;
+  margin-left: auto;
+  min-width: 260px;
+}
+
+.author-page .author-profile-avatar-wrap {
   position: relative;
+  width: 156px;
+  height: 156px;
   flex-shrink: 0;
 }
 
-.author-profile-avatar,
-.author-avatar-skeleton {
-  width: 160px;
-  height: 160px;
+.author-page .author-profile-avatar,
+.author-page .author-avatar-skeleton {
+  width: 156px;
+  height: 156px;
   border-radius: 50%;
   object-fit: cover;
   border: 8px solid #f5f5f5;
-  background: #ececec;
+  background: #fff;
 }
 
-.author-verified-badge {
+.author-page .author-verified-badge {
   position: absolute;
-  right: 6px;
-  bottom: 10px;
+  right: 4px;
+  bottom: 4px;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -64,148 +83,166 @@
   justify-content: center;
 }
 
-.author-profile-meta h2 {
+.author-page .author-meta,
+.author-page .author-meta-skeleton {
+  padding-bottom: 10px;
+  min-width: 0;
+}
+
+.author-page .author-meta h2 {
+  margin: 0 0 6px;
+  line-height: 1.1;
+}
+
+.author-page .author-username {
   margin-bottom: 8px;
-}
-
-.author-profile-username {
-  color: #7f67d9;
+  color: #8364e2;
   font-weight: 600;
-  margin-bottom: 10px;
 }
 
-.author-profile-wallet {
+.author-page .author-wallet-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: #777;
+  gap: 8px;
   flex-wrap: wrap;
+  margin-top: 6px;
 }
 
-.author-copy-btn {
+.author-page .author-wallet {
+  display: inline-block;
+  max-width: 100%;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.author-page .author-copy-btn {
   border: 1px solid #ddd;
   background: #f7f7f7;
-  padding: 4px 12px;
+  padding: 5px 12px;
   border-radius: 6px;
   font-size: 14px;
 }
 
-.author-profile-actions {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex-shrink: 0;
-}
-
-.author-followers {
-  font-size: 20px;
+.author-page .author-followers {
+  font-size: 18px;
   font-weight: 600;
   color: #666;
+  white-space: nowrap;
+  line-height: 1;
 }
 
-.author-follow-btn {
+.author-page .author-follow-btn,
+.author-page .author-button-skeleton {
   min-width: 140px;
+  height: 48px;
 }
 
-.author-items-grid .nft__item_preview {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  display: block;
-  border-radius: 10px;
+.author-page .author-items-section {
+  margin-top: 10px;
 }
 
-.author-profile-skeleton {
-  align-items: center;
-}
-
-.author-meta-skeleton {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.author-follow-skeleton-wrap {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.author-item-skeleton-card {
-  background: #fff;
-  border: 1px solid #e8e8e8;
-  border-radius: 14px;
-  overflow: hidden;
-  padding: 18px;
+.author-page .author-items-grid .d-item {
   margin-bottom: 30px;
 }
 
-.author-item-skeleton-top {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 18px;
+.author-page .author-items-grid .nft__item,
+.author-page .author-item-skeleton-card {
+  position: relative;
+  padding: 18px;
+  min-height: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
 }
 
-.author-item-skeleton-avatar {
+.author-page .author-items-grid .author_list_pp,
+.author-page .author-item-skeleton-top {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 3;
+}
+
+.author-page .author-items-grid .author_list_pp img,
+.author-page .author-item-skeleton-avatar {
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
-.author-item-skeleton-image {
+.author-page .author-items-grid .nft__item_wrap {
+  margin-top: 34px;
+}
+
+.author-page .author-items-grid .nft__item_preview,
+.author-page .author-item-skeleton-image {
   width: 100%;
-  height: 300px;
+  height: 240px;
+  object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 18px;
+  display: block;
 }
 
-.author-item-skeleton-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.author-page .author-item-skeleton-image {
+  margin-top: 34px;
 }
 
-.author-line-skeleton {
+.author-page .author-items-grid .nft__item_info,
+.author-page .author-item-skeleton-body {
+  padding-top: 16px;
+}
+
+.author-page .author-items-grid .nft__item_info h4 {
+  margin-bottom: 8px;
+}
+
+.author-page .author-items-grid .nft__item_price {
+  margin-bottom: 6px;
+}
+
+.author-page .author-line-skeleton {
   border-radius: 8px;
 }
 
-.author-line-skeleton--name {
+.author-page .author-line-skeleton--name {
   width: 220px;
   height: 26px;
 }
 
-.author-line-skeleton--username {
+.author-page .author-line-skeleton--username {
   width: 120px;
   height: 18px;
+  margin-top: 12px;
 }
 
-.author-line-skeleton--wallet {
+.author-page .author-line-skeleton--wallet {
   width: 180px;
   height: 18px;
+  margin-top: 12px;
 }
 
-.author-line-skeleton--followers {
+.author-page .author-line-skeleton--followers {
   width: 140px;
   height: 20px;
 }
 
-.author-line-skeleton--title {
+.author-page .author-line-skeleton--title {
   width: 140px;
   height: 18px;
 }
 
-.author-line-skeleton--price {
+.author-page .author-line-skeleton--price {
   width: 90px;
   height: 14px;
+  margin-top: 10px;
 }
 
-.author-button-skeleton {
-  width: 140px;
-  height: 48px;
-  border-radius: 8px;
-}
-
-.shimmer {
+.author-page .shimmer {
   background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
   background-size: 200% 100%;
   animation: authorShimmer 1.4s infinite linear;
@@ -221,65 +258,81 @@
 }
 
 @media (max-width: 991px) {
-  .author-hero,
-  .author-hero-skeleton {
+  .author-page .author-hero,
+  .author-page .author-hero-skeleton {
     height: 260px;
   }
 
-  .author-profile-card,
-  .author-profile-skeleton {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: -50px;
+  .author-page .author-profile-section {
+    margin-top: -56px;
   }
 
-  .author-profile-actions,
-  .author-follow-skeleton-wrap {
+  .author-page .author-profile-row {
+    align-items: flex-start;
+  }
+
+  .author-page .author-profile-left {
+    align-items: center;
+  }
+
+  .author-page .author-profile-right {
+    margin-left: 0;
     width: 100%;
     justify-content: space-between;
   }
 
-  .author-items-grid .nft__item_preview,
-  .author-item-skeleton-image {
-    height: 280px;
+  .author-page .author-items-grid .nft__item_preview,
+  .author-page .author-item-skeleton-image {
+    height: 220px;
   }
 }
 
 @media (max-width: 575px) {
-  .author-hero,
-  .author-hero-skeleton {
-    height: 220px;
+  .author-page .author-hero,
+  .author-page .author-hero-skeleton {
+    height: 230px;
   }
 
-  .author-profile-main {
+  .author-page .author-profile-section {
+    margin-top: -40px;
+  }
+
+  .author-page .author-profile-row {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .author-profile-avatar,
-  .author-avatar-skeleton {
-    width: 140px;
-    height: 140px;
-  }
-
-  .author-profile-actions,
-  .author-follow-skeleton-wrap {
+  .author-page .author-profile-left {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 18px;
   }
 
-  .author-follow-btn,
-  .author-button-skeleton {
+  .author-page .author-profile-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .author-page .author-profile-avatar-wrap,
+  .author-page .author-profile-avatar,
+  .author-page .author-avatar-skeleton {
+    width: 138px;
+    height: 138px;
+  }
+
+  .author-page .author-follow-btn,
+  .author-page .author-button-skeleton {
     width: 100%;
   }
 
-  .author-items-grid .nft__item_preview,
-  .author-item-skeleton-image {
-    height: 260px;
+  .author-page .author-wallet {
+    white-space: normal;
+    word-break: break-word;
   }
 
-  .author-line-skeleton--name {
-    width: 170px;
+  .author-page .author-items-grid .nft__item_preview,
+  .author-page .author-item-skeleton-image {
+    height: 210px;
   }
 }
