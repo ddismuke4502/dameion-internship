@@ -19,7 +19,6 @@ const TopSellers = () => {
 
         const data = await response.json();
         console.log("Top Sellers API response:", data);
-        console.log("First seller:", data?.[0]);
         setSellers(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to fetch Top Sellers:", err);
@@ -32,11 +31,26 @@ const TopSellers = () => {
     fetchTopSellers();
   }, []);
 
-  const formatEth = (item) => {
-    const rawValue =
-      item.price ?? item.eth ?? item.amount ?? item.volume ?? item.total ?? "0";
+  const getAuthorId = (seller) =>
+    seller?.authorId || seller?.authorID || seller?.author || "";
 
-    return typeof rawValue === "string" && rawValue.toLowerCase().includes("eth")
+  const getAuthorName = (seller) =>
+    seller?.authorName || seller?.name || seller?.author || "Unknown Seller";
+
+  const getAuthorImage = (seller) =>
+    seller?.authorImage || seller?.profileImage || seller?.image || "";
+
+  const formatEth = (seller) => {
+    const rawValue =
+      seller?.price ??
+      seller?.eth ??
+      seller?.amount ??
+      seller?.volume ??
+      seller?.total ??
+      "0";
+
+    return typeof rawValue === "string" &&
+      rawValue.toLowerCase().includes("eth")
       ? rawValue
       : `${rawValue} ETH`;
   };
@@ -113,18 +127,20 @@ const TopSellers = () => {
               {sellers.map((seller, index) => (
                 <li key={seller.id ?? index}>
                   <div className="author_list_pp">
-                    <Link to="/author">
+                    <Link to={`/author?author=${getAuthorId(seller)}`}>
                       <img
                         className="pp-author"
-                        src={seller.authorImage}
-                        alt={seller.authorName}
+                        src={getAuthorImage(seller)}
+                        alt={getAuthorName(seller)}
                       />
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
 
                   <div className="author_list_info">
-                    <Link to="/author">{seller.authorName}</Link>
+                    <Link to={`/author?author=${getAuthorId(seller)}`}>
+                      {getAuthorName(seller)}
+                    </Link>
                     <span>{formatEth(seller)}</span>
                   </div>
                 </li>
