@@ -12,7 +12,8 @@ const AuthorPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isFollowing, setIsFollowing] = useState(false);
-  const [followerCount, setFollowerCount] = useState(0);
+  const [baseFollowerCount, setBaseFollowerCount] = useState(0);
+  const displayedFollowerCount = baseFollowerCount + (isFollowing ? 1 : 0);
 
   const getAuthorName = (value) =>
     value?.authorName || value?.name || value?.author || "Unknown Author";
@@ -185,7 +186,7 @@ const AuthorPage = () => {
 
         setAuthor(resolvedAuthor);
         setItems(resolvedItems);
-        setFollowerCount(getFollowers(resolvedAuthor));
+        setBaseFollowerCount(getFollowers(resolvedAuthor));
       } catch (err) {
         console.error("Failed to fetch author page:", err);
         setError("Failed to load author page");
@@ -211,11 +212,7 @@ const AuthorPage = () => {
   );
 
   const handleFollowToggle = () => {
-    setIsFollowing((prev) => {
-      const next = !prev;
-      setFollowerCount((count) => (next ? count + 1 : Math.max(count - 1, 0)));
-      return next;
-    });
+    setIsFollowing((prev) => !prev);
   };
 
   const handleCopyWallet = async () => {
@@ -344,7 +341,7 @@ const AuthorPage = () => {
             </div>
 
             <div className="author-profile-right">
-              <div className="author-followers">{followerCount} followers</div>
+              <div className="author-followers">{displayedFollowerCount} followers</div>
               <button
                 type="button"
                 className="btn-main author-follow-btn"
