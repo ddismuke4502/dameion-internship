@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import CountdownPill from "../UI/CountdownPill";
+import AOS from "aos";
 
 function NextArrow({ onClick }) {
   return (
@@ -84,6 +85,14 @@ const NewItems = () => {
   }, []);
 
   useEffect(() => {
+  if (!loading) {
+    window.requestAnimationFrame(() => {
+      AOS.refreshHard();
+    });
+  }
+}, [loading, items.length]);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       setNow(Date.now());
     }, 1000);
@@ -126,7 +135,7 @@ const NewItems = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="text-center">
+              <div className="text-center" data-aos="fade-up">
                 <h2>New Items</h2>
                 <div className="small-border bg-color-2"></div>
               </div>
@@ -213,9 +222,9 @@ const NewItems = () => {
           <div className="col-lg-12">
             <div className="new-items-slider-wrap">
               <Slider {...sliderSettings}>
-                {items.map((item) => (
+                {items.map((item, index) => (
                   <div className="new-items-slide" key={item.id}>
-                    <div className="nft__item new-items-card">
+                    <div className="nft__item new-items-card" data-aos="fade-up" data-aos-delay={(index % 4) * 100}>
                       <div className="author_list_pp">
                         <Link to={`/author?author=${getAuthorId(item)}`}>
                           <img
