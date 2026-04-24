@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="footer-light">
       <div className="container">
         <div className="row">
-          <div className="col-md-3 col-sm-6 col-xs-1">
+          <div className="col-md-3 col-sm-6 col-xs-1" data-aos="fade-up">
             <div className="widget">
               <h5>Marketplace</h5>
               <ul>
@@ -44,7 +44,12 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-md-3 col-sm-6 col-xs-1">
+
+          <div
+            className="col-md-3 col-sm-6 col-xs-1"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             <div className="widget">
               <h5>Resources</h5>
               <ul>
@@ -81,7 +86,12 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-md-3 col-sm-6 col-xs-1">
+
+          <div
+            className="col-md-3 col-sm-6 col-xs-1"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div className="widget">
               <h5>Community</h5>
               <ul>
@@ -118,7 +128,12 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="col-md-3 col-sm-6 col-xs-1">
+
+          <div
+            className="col-md-3 col-sm-6 col-xs-1"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <div className="widget">
               <h5>Newsletter</h5>
               <p>
@@ -151,7 +166,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="subfooter">
+
+      <div className="subfooter" data-aos="fade-up" data-aos-delay="150">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
