@@ -56,6 +56,8 @@ const NewItems = () => {
   const getLikes = (item) =>
     item?.likes ?? item?.likeCount ?? item?.favorites ?? 0;
 
+  const getNftId = (item) => item?.nftId || item?.nftID || item?.id || "";
+
   useEffect(() => {
     const fetchNewItems = async () => {
       try {
@@ -249,7 +251,7 @@ const NewItems = () => {
                           </div>
                         </div>
 
-                        <Link to="/item-details">
+                        <Link to={`/item-details?nftId=${getNftId(item)}`}>
                           <img
                             src={item.nftImage}
                             className="nft__item_preview"
@@ -259,7 +261,7 @@ const NewItems = () => {
                       </div>
 
                       <div className="nft__item_info">
-                        <Link to="/item-details">
+                        <Link to={`/item-details?nftId=${getNftId(item)}`}>
                           <h4>{getItemTitle(item)}</h4>
                         </Link>
                         <div className="nft__item_price">
