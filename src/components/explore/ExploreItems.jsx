@@ -14,7 +14,7 @@ const ExploreItems = () => {
     const fetchExploreItems = async () => {
       try {
         const response = await fetch(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore"
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore",
         );
 
         if (!response.ok) {
@@ -45,11 +45,14 @@ const ExploreItems = () => {
 
   const getTitle = (item) => item.title || item.name || "Untitled Item";
 
-  const getAuthorName = (item) =>
-    item.authorName || item.author || item.creatorName || "Unknown Creator";
+  const getAuthorId = (item) =>
+    item?.authorId || item?.authorID || item?.author || "";
 
   const getAuthorImage = (item) =>
-    item.authorImage || item.profileImage || item.image || "";
+    item?.authorImage || item?.profileImage || item?.image || "";
+
+  const getAuthorName = (item) =>
+    item?.authorName || item?.author || item?.creatorName || "Unknown Creator";
 
   const getPreviewImage = (item) =>
     item.nftImage || item.image || item.previewImage || "";
@@ -170,15 +173,12 @@ const ExploreItems = () => {
           <div className="nft__item">
             <div className="author_list_pp">
               <Link
-                to="/author"
+                to={`/author?author=${getAuthorId(item)}`}
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
                 title={`Creator: ${getAuthorName(item)}`}
               >
-                <img
-                  src={getAuthorImage(item)}
-                  alt={getAuthorName(item)}
-                />
+                <img src={getAuthorImage(item)} alt={getAuthorName(item)} />
                 <i className="fa fa-check"></i>
               </Link>
             </div>
