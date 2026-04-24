@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AOS from "aos";
 
 const TopSellers = () => {
   const [sellers, setSellers] = useState([]);
@@ -31,6 +32,14 @@ const TopSellers = () => {
     fetchTopSellers();
   }, []);
 
+  useEffect(() => {
+  if (!loading) {
+    window.requestAnimationFrame(() => {
+      AOS.refreshHard();
+    });
+  }
+}, [loading, sellers.length]);
+
   const getAuthorId = (seller) =>
     seller?.authorId || seller?.authorID || seller?.author || "";
 
@@ -61,7 +70,7 @@ const TopSellers = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="text-center">
+              <div className="text-center" data-aos="fade-up">
                 <h2>Top Sellers</h2>
                 <div className="small-border bg-color-2"></div>
               </div>
@@ -96,7 +105,7 @@ const TopSellers = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="text-center">
+              <div className="text-center" data-aos="fade-up">
                 <h2>Top Sellers</h2>
                 <div className="small-border bg-color-2"></div>
               </div>
@@ -116,7 +125,7 @@ const TopSellers = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-up">
               <h2>Top Sellers</h2>
               <div className="small-border bg-color-2"></div>
             </div>
@@ -125,7 +134,7 @@ const TopSellers = () => {
           <div className="col-md-12">
             <ol className="author_list">
               {sellers.map((seller, index) => (
-                <li key={seller.id ?? index}>
+                <li key={seller.id ?? index}  data-aos="fade-up" data-aos-delay={index * 70}>
                   <div className="author_list_pp">
                     <Link to={`/author?author=${getAuthorId(seller)}`}>
                       <img

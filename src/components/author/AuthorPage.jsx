@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import AOS from "aos";
 
 const DEFAULT_AUTHOR_ID = "73855012";
 
@@ -200,6 +201,14 @@ const AuthorPage = () => {
     fetchAuthorPage();
   }, [authorId]);
 
+  useEffect(() => {
+  if (!loading) {
+    window.requestAnimationFrame(() => {
+      AOS.refreshHard();
+    });
+  }
+}, [loading, items.length, authorId]);
+
   const profileBanner = useMemo(
     () => getBannerImage(author, items),
     [author, items]
@@ -234,7 +243,7 @@ const AuthorPage = () => {
 
         <div className="container author-profile-section">
           <div className="author-profile-card author-profile-skeleton">
-            <div className="author-profile-row">
+            <div className="author-profile-row" data-aos="fade-up">
               <div className="author-profile-left">
                 <div className="author-avatar-skeleton shimmer"></div>
 
@@ -302,7 +311,7 @@ const AuthorPage = () => {
 
       <div className="container author-profile-section">
         <div className="author-profile-card">
-          <div className="author-profile-row">
+          <div className="author-profile-row" data-aos="fade-up">
             <div className="author-profile-left">
               <div className="author-profile-avatar-wrap">
                 <img
@@ -361,6 +370,8 @@ const AuthorPage = () => {
               key={item.id ?? index}
               className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
               style={{ display: "block", backgroundSize: "cover" }}
+              data-aos="fade-up"
+              data-aos-delay={(index % 4) * 100}
             >
               <div className="nft__item">
                 <div className="author_list_pp">
