@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import AOS from "aos";
 
 function NextArrow({ onClick }) {
   return (
@@ -97,6 +98,14 @@ const HotCollections = () => {
     ],
   };
 
+  useEffect(() => {
+  if (!loading) {
+    window.requestAnimationFrame(() => {
+      AOS.refreshHard();
+    });
+  }
+}, [loading, collections.length]);
+
   if (loading) {
     return (
       <section
@@ -106,7 +115,7 @@ const HotCollections = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="text-center">
+              <div className="text-center" data-aos="fade-up">
                 <h2>Hot Collections</h2>
                 <div className="small-border bg-color-2"></div>
               </div>
@@ -196,9 +205,9 @@ const HotCollections = () => {
           <div className="col-lg-12">
             <div className="hot-collections-slider-wrap">
               <Slider {...sliderSettings}>
-                {collections.map((item) => (
+                {collections.map((item, index) => (
                   <div className="hot-collections-slide" key={item.id}>
-                    <div className="nft_coll hot-collections-card">
+                    <div className="nft_coll hot-collections-card" data-aos="fade-up" data-aos-delay={(index % 4) * 100}>
                       <div className="nft_wrap">
                         <Link to={`/item-details?nftId=${getNftId(item)}`}>
                           <img
