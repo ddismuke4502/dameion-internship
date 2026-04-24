@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import CountdownPill from "../UI/CountdownPill";
+import AOS from "aos";
 
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
@@ -34,6 +35,14 @@ const ExploreItems = () => {
 
     fetchExploreItems();
   }, []);
+
+  useEffect(() => {
+  if (!loading) {
+    window.requestAnimationFrame(() => {
+      AOS.refreshHard();
+    });
+  }
+}, [loading, visibleItems.length]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -110,7 +119,7 @@ const ExploreItems = () => {
   if (loading) {
     return (
       <>
-        <div className="explore-filter-wrap">
+        <div className="explore-filter-wrap" data-aos="fade-up">
           <select id="filter-items" value={sortBy} disabled>
             <option value="default">Default</option>
             <option value="price_low_to_high">Price, Low to High</option>
@@ -153,7 +162,7 @@ const ExploreItems = () => {
 
   return (
     <>
-      <div className="explore-filter-wrap">
+      <div className="explore-filter-wrap" data-aos="fade-up">
         <select
           id="filter-items"
           value={sortBy}
@@ -171,6 +180,8 @@ const ExploreItems = () => {
           key={item.id ?? index}
           className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
           style={{ display: "block", backgroundSize: "cover" }}
+          data-aos="fade-up"
+          data-aos-delay={(index % 4) * 100}
         >
           <div className="nft__item">
             <div className="author_list_pp">
@@ -230,7 +241,7 @@ const ExploreItems = () => {
       ))}
 
       {hasMore && (
-        <div className="col-md-12 text-center">
+        <div className="col-md-12 text-center" data-aos="fade-up">
           <button
             type="button"
             id="loadmore"
