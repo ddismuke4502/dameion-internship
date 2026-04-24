@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
 import EthImage from "../images/ethereum.svg";
+import { Link, useSearchParams } from "react-router-dom";
 
 const DEFAULT_NFT_ID = "17914494";
 
@@ -34,24 +34,57 @@ const ItemDetails = () => {
   const getLikes = (value) =>
     value?.likes ?? value?.likeCount ?? value?.favorites ?? 0;
 
-  const getAuthorId = (value) =>
-    value?.authorId || value?.authorID || value?.author || "";
-
-  const getAuthorName = (value) =>
-    value?.authorName || value?.author || value?.name || "Unknown Author";
-
-  const getAuthorImage = (value) =>
-    value?.authorImage || value?.profileImage || value?.image || "";
-
   const getPriceValue = (value) =>
     value?.price ?? value?.eth ?? value?.amount ?? value?.currentPrice ?? "0";
 
-  const getPriceLabel = (value) => {
+  const getPriceDisplay = (value) => {
     const raw = getPriceValue(value);
     return typeof raw === "string" && raw.toLowerCase().includes("eth")
-      ? raw
-      : `${raw} ETH`;
+      ? raw.replace(" ETH", "")
+      : raw;
   };
+
+  const getOwnerId = (value) =>
+    value?.ownerId ||
+    value?.ownerID ||
+    value?.ownerAuthorId ||
+    value?.authorId ||
+    value?.authorID ||
+    value?.author ||
+    "";
+
+  const getOwnerName = (value) =>
+    value?.ownerName ||
+    value?.owner ||
+    value?.authorName ||
+    value?.author ||
+    "Unknown Author";
+
+  const getOwnerImage = (value) =>
+    value?.ownerImage ||
+    value?.ownerAuthorImage ||
+    value?.authorImage ||
+    value?.profileImage ||
+    value?.image ||
+    "";
+
+  const getCreatorId = (value) =>
+    value?.creatorId ||
+    value?.creatorID ||
+    value?.creatorAuthorId ||
+    getOwnerId(value);
+
+  const getCreatorName = (value) =>
+    value?.creatorName ||
+    value?.creator ||
+    value?.artistName ||
+    getOwnerName(value);
+
+  const getCreatorImage = (value) =>
+    value?.creatorImage ||
+    value?.creatorAuthorImage ||
+    value?.artistImage ||
+    getOwnerImage(value);
 
   useEffect(() => {
     const fetchItemDetails = async () => {
@@ -85,10 +118,13 @@ const ItemDetails = () => {
   const description = useMemo(() => getDescription(item), [item]);
   const views = useMemo(() => getViews(item), [item]);
   const likes = useMemo(() => getLikes(item), [item]);
-  const priceLabel = useMemo(() => getPriceLabel(item), [item]);
-  const ownerName = useMemo(() => getAuthorName(item), [item]);
-  const ownerImage = useMemo(() => getAuthorImage(item), [item]);
-  const ownerId = useMemo(() => getAuthorId(item), [item]);
+  const ownerId = useMemo(() => getOwnerId(item), [item]);
+  const ownerName = useMemo(() => getOwnerName(item), [item]);
+  const ownerImage = useMemo(() => getOwnerImage(item), [item]);
+  const creatorId = useMemo(() => getCreatorId(item), [item]);
+  const creatorName = useMemo(() => getCreatorName(item), [item]);
+  const creatorImage = useMemo(() => getCreatorImage(item), [item]);
+  const priceDisplay = useMemo(() => getPriceDisplay(item), [item]);
 
   if (loading) {
     return (
@@ -101,31 +137,25 @@ const ItemDetails = () => {
                 <div className="col-md-6">
                   <div className="item-details-image-skeleton shimmer"></div>
                 </div>
-
                 <div className="col-md-6">
                   <div className="item-details-content-skeleton">
                     <div className="item-details-line item-details-line--title shimmer"></div>
-
                     <div className="item-details-stats-skeleton">
                       <div className="item-details-pill-skeleton shimmer"></div>
                       <div className="item-details-pill-skeleton shimmer"></div>
                     </div>
-
                     <div className="item-details-line item-details-line--text shimmer"></div>
                     <div className="item-details-line item-details-line--text shimmer"></div>
-
                     <div className="item-details-label-skeleton shimmer"></div>
                     <div className="item-details-owner-skeleton">
                       <div className="item-details-owner-avatar shimmer"></div>
                       <div className="item-details-owner-name shimmer"></div>
                     </div>
-
                     <div className="item-details-label-skeleton shimmer"></div>
                     <div className="item-details-owner-skeleton">
                       <div className="item-details-owner-avatar shimmer"></div>
                       <div className="item-details-owner-name shimmer"></div>
                     </div>
-
                     <div className="spacer-40"></div>
                     <div className="item-details-label-skeleton shimmer"></div>
                     <div className="item-details-price-skeleton shimmer"></div>
@@ -170,7 +200,6 @@ const ItemDetails = () => {
                   alt={title}
                 />
               </div>
-
               <div className="col-md-6">
                 <div className="item_info">
                   <h2>{title}</h2>
@@ -199,9 +228,7 @@ const ItemDetails = () => {
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to={`/author?author=${ownerId}`}>
-                            {ownerName}
-                          </Link>
+                          <Link to={`/author?author=${ownerId}`}>{ownerName}</Link>
                         </div>
                       </div>
                     </div>
@@ -213,25 +240,21 @@ const ItemDetails = () => {
                       <h6>Creator</h6>
                       <div className="item_author">
                         <div className="author_list_pp">
-                          <Link to={`/author?author=${ownerId}`}>
-                            <img src={ownerImage} alt={ownerName} />
+                          <Link to={`/author?author=${creatorId}`}>
+                            <img src={creatorImage} alt={creatorName} />
                             <i className="fa fa-check"></i>
                           </Link>
                         </div>
                         <div className="author_list_info">
-                          <Link to={`/author?author=${ownerId}`}>
-                            {ownerName}
-                          </Link>
+                          <Link to={`/author?author=${creatorId}`}>{creatorName}</Link>
                         </div>
                       </div>
                     </div>
-
                     <div className="spacer-40"></div>
-
                     <h6>Price</h6>
                     <div className="nft-item-price">
                       <img src={EthImage} alt="" />
-                      <span>{priceLabel.replace(" ETH", "")}</span>
+                      <span>{priceDisplay}</span>
                     </div>
                   </div>
                 </div>

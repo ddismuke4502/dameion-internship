@@ -68,6 +68,8 @@ const ExploreItems = () => {
     return Number(raw) || 0;
   };
 
+  const getNftId = (item) => item?.nftId || item?.nftID || item?.id || "";
+
   const getPriceLabel = (item) => {
     const raw =
       item.price ?? item.eth ?? item.amount ?? item.currentPrice ?? "0";
@@ -204,7 +206,7 @@ const ExploreItems = () => {
                 </div>
               </div>
 
-              <Link to="/item-details">
+              <Link to={`/item-details?nftId=${getNftId(item)}`}>
                 <img
                   src={getPreviewImage(item)}
                   className="nft__item_preview"
@@ -214,7 +216,7 @@ const ExploreItems = () => {
             </div>
 
             <div className="nft__item_info">
-              <Link to="/item-details">
+              <Link to={`/item-details?nftId=${getNftId(item)}`}>
                 <h4>{getTitle(item)}</h4>
               </Link>
               <div className="nft__item_price">{getPriceLabel(item)}</div>

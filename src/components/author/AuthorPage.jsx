@@ -64,6 +64,8 @@ const AuthorPage = () => {
     return `${wallet.slice(0, 12)}...${wallet.slice(-6)}`;
   };
 
+  const getNftId = (item) => item?.nftId || item?.nftID || item?.id || "";
+
   const getItemTitle = (item) => item?.title || item?.name || "Untitled Item";
 
   const getItemPrice = (item) => {
@@ -390,7 +392,7 @@ const AuthorPage = () => {
                     </div>
                   </div>
 
-                  <Link to="/item-details">
+                  <Link to={`/item-details?nftId=${getNftId(item)}`}>
                     <img
                       src={getItemImage(item)}
                       className="nft__item_preview"
@@ -400,7 +402,7 @@ const AuthorPage = () => {
                 </div>
 
                 <div className="nft__item_info">
-                  <Link to="/item-details">
+                  <Link to={`/item-details?nftId=${getNftId(item)}`}>
                     <h4>{getItemTitle(item)}</h4>
                   </Link>
                   <div className="nft__item_price">{getItemPrice(item)}</div>

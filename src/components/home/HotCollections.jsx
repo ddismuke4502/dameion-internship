@@ -42,6 +42,8 @@ const HotCollections = () => {
   const getCollectionTitle = (item) =>
     item?.title || item?.name || "Untitled Collection";
 
+  const getNftId = (item) => item?.nftId || item?.nftID || item?.id || "";
+
   useEffect(() => {
     const fetchHotCollections = async () => {
       try {
@@ -198,7 +200,7 @@ const HotCollections = () => {
                   <div className="hot-collections-slide" key={item.id}>
                     <div className="nft_coll hot-collections-card">
                       <div className="nft_wrap">
-                        <Link to="/item-details">
+                        <Link to={`/item-details?nftId=${getNftId(item)}`}>
                           <img
                             src={item.nftImage}
                             className="img-fluid"
