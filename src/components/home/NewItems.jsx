@@ -31,7 +31,7 @@ function PrevArrow({ onClick }) {
 
 function formatPrice(item) {
   const rawPrice =
-    item.price ?? item.ethPrice ?? item.amount ?? item.currentPrice ?? "0.00";
+    item?.price ?? item?.ethPrice ?? item?.amount ?? item?.currentPrice ?? "0.00";
 
   return typeof rawPrice === "string" && rawPrice.toLowerCase().includes("eth")
     ? rawPrice
@@ -44,11 +44,23 @@ const NewItems = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const getAuthorId = (item) =>
+    item?.authorId || item?.authorID || item?.author || "";
+
+  const getAuthorImage = (item) =>
+    item?.authorImage || item?.profileImage || item?.image || "";
+
+  const getItemTitle = (item) =>
+    item?.title || item?.name || "Untitled Item";
+
+  const getLikes = (item) =>
+    item?.likes ?? item?.likeCount ?? item?.favorites ?? 0;
+
   useEffect(() => {
     const fetchNewItems = async () => {
       try {
         const response = await fetch(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems",
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
         );
 
         if (!response.ok) {
@@ -203,10 +215,10 @@ const NewItems = () => {
                   <div className="new-items-slide" key={item.id}>
                     <div className="nft__item new-items-card">
                       <div className="author_list_pp">
-                        <Link to="/author">
+                        <Link to={`/author?author=${getAuthorId(item)}`}>
                           <img
-                            src={item.authorImage}
-                            alt={`${item.title} creator`}
+                            src={getAuthorImage(item)}
+                            alt={`${getItemTitle(item)} creator`}
                           />
                           <i className="fa fa-check"></i>
                         </Link>
@@ -241,21 +253,21 @@ const NewItems = () => {
                           <img
                             src={item.nftImage}
                             className="nft__item_preview"
-                            alt={item.title}
+                            alt={getItemTitle(item)}
                           />
                         </Link>
                       </div>
 
                       <div className="nft__item_info">
                         <Link to="/item-details">
-                          <h4>{item.title}</h4>
+                          <h4>{getItemTitle(item)}</h4>
                         </Link>
                         <div className="nft__item_price">
                           {formatPrice(item)}
                         </div>
                         <div className="nft__item_like">
                           <i className="fa fa-heart"></i>
-                          <span>{item.likes ?? item.likeCount ?? 0}</span>
+                          <span>{getLikes(item)}</span>
                         </div>
                       </div>
                     </div>

@@ -33,11 +33,20 @@ const HotCollections = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const getAuthorId = (item) =>
+    item?.authorId || item?.authorID || item?.author || "";
+
+  const getAuthorImage = (item) =>
+    item?.authorImage || item?.profileImage || item?.image || "";
+
+  const getCollectionTitle = (item) =>
+    item?.title || item?.name || "Untitled Collection";
+
   useEffect(() => {
     const fetchHotCollections = async () => {
       try {
         const response = await fetch(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections",
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
         );
 
         if (!response.ok) {
@@ -45,7 +54,7 @@ const HotCollections = () => {
         }
 
         const data = await response.json();
-        setCollections(data);
+        setCollections(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to fetch Hot Collections:", err);
         setError("Failed to load Hot Collections");
@@ -193,17 +202,17 @@ const HotCollections = () => {
                           <img
                             src={item.nftImage}
                             className="img-fluid"
-                            alt={item.title}
+                            alt={getCollectionTitle(item)}
                           />
                         </Link>
                       </div>
 
                       <div className="nft_coll_pp">
-                        <Link to="/author">
+                        <Link to={`/author?author=${getAuthorId(item)}`}>
                           <img
                             className="pp-coll"
-                            src={item.authorImage}
-                            alt={`${item.title} author`}
+                            src={getAuthorImage(item)}
+                            alt={`${getCollectionTitle(item)} author`}
                           />
                         </Link>
                         <i className="fa fa-check"></i>
@@ -211,7 +220,7 @@ const HotCollections = () => {
 
                       <div className="nft_coll_info">
                         <Link to="/explore">
-                          <h4>{item.title}</h4>
+                          <h4>{getCollectionTitle(item)}</h4>
                         </Link>
                         <span>ERC-{item.code}</span>
                       </div>
