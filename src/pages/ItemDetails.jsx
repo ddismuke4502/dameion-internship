@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import EthImage from "../images/ethereum.svg";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -37,12 +37,12 @@ const ItemDetails = () => {
   const getPriceValue = (value) =>
     value?.price ?? value?.eth ?? value?.amount ?? value?.currentPrice ?? "0";
 
-  const getPriceDisplay = (value) => {
+  const getPriceDisplay = useCallback((value) => {
     const raw = getPriceValue(value);
     return typeof raw === "string" && raw.toLowerCase().includes("eth")
       ? raw.replace(" ETH", "")
       : raw;
-  };
+  }, []);
 
   const getOwnerId = (value) =>
     value?.ownerId ||
@@ -68,23 +68,23 @@ const ItemDetails = () => {
     value?.image ||
     "";
 
-  const getCreatorId = (value) =>
+  const getCreatorId = useCallback((value) => {
     value?.creatorId ||
     value?.creatorID ||
     value?.creatorAuthorId ||
-    getOwnerId(value);
+    getOwnerId(value)}, []);
 
-  const getCreatorName = (value) =>
+  const getCreatorName = useCallback((value) => {
     value?.creatorName ||
     value?.creator ||
     value?.artistName ||
-    getOwnerName(value);
+    getOwnerName(value)}, []);
 
-  const getCreatorImage = (value) =>
+  const getCreatorImage = useCallback((value) => {
     value?.creatorImage ||
     value?.creatorAuthorImage ||
     value?.artistImage ||
-    getOwnerImage(value);
+    getOwnerImage(value)}, []);
 
   useEffect(() => {
     const fetchItemDetails = async () => {
@@ -121,10 +121,10 @@ const ItemDetails = () => {
   const ownerId = useMemo(() => getOwnerId(item), [item]);
   const ownerName = useMemo(() => getOwnerName(item), [item]);
   const ownerImage = useMemo(() => getOwnerImage(item), [item]);
-  const creatorId = useMemo(() => getCreatorId(item), [item]);
-  const creatorName = useMemo(() => getCreatorName(item), [item]);
-  const creatorImage = useMemo(() => getCreatorImage(item), [item]);
-  const priceDisplay = useMemo(() => getPriceDisplay(item), [item]);
+  const creatorId = useMemo(() => getCreatorId(item), [item, getCreatorId]);
+  const creatorName = useMemo(() => getCreatorName(item), [item, getCreatorName]);
+  const creatorImage = useMemo(() => getCreatorImage(item), [item, getCreatorImage]);
+  const priceDisplay = useMemo(() => getPriceDisplay(item), [item, getPriceDisplay]);
 
   if (loading) {
     return (

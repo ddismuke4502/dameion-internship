@@ -219,7 +219,7 @@ const AuthorPage = () => {
   const profileWallet = useMemo(() => getWallet(author), [author]);
   const resolvedAuthorId = useMemo(
     () => getResolvedAuthorId(author),
-    [author, authorId]
+    [author, getResolvedAuthorId]
   );
 
   const handleFollowToggle = () => {

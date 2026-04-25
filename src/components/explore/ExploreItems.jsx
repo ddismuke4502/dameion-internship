@@ -37,14 +37,6 @@ const ExploreItems = () => {
   }, []);
 
   useEffect(() => {
-  if (!loading) {
-    window.requestAnimationFrame(() => {
-      AOS.refreshHard();
-    });
-  }
-}, [loading, visibleItems.length]);
-
-  useEffect(() => {
     const timer = setInterval(() => {
       setNow(Date.now());
     }, 1000);
@@ -115,6 +107,14 @@ const ExploreItems = () => {
   const handleLoadMore = () => {
     setVisibleCount((prev) => Math.min(prev + 4, sortedItems.length));
   };
+
+  useEffect(() => {
+  if (!loading) {
+    window.requestAnimationFrame(() => {
+      AOS.refreshHard();
+    });
+  }
+}, [loading, visibleItems.length]);
 
   if (loading) {
     return (
