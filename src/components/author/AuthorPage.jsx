@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import AOS from "aos";
 
@@ -56,8 +56,8 @@ const AuthorPage = () => {
       value?.followers ?? value?.followerCount ?? value?.followersCount ?? 0
     ) || 0;
 
-  const getResolvedAuthorId = (value) =>
-    value?.authorId || value?.authorID || value?.author || authorId;
+  const getResolvedAuthorId = useCallback((value) => 
+    value?.authorId || value?.authorID || value?.author || authorId, [authorId]);
 
   const getShortWallet = (wallet) => {
     if (!wallet) return "";
