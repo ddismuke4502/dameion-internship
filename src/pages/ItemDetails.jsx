@@ -68,23 +68,23 @@ const ItemDetails = () => {
     value?.image ||
     "";
 
-  const getCreatorId = useCallback((value) => {
+  const getCreatorId = useCallback((value) => 
     value?.creatorId ||
     value?.creatorID ||
     value?.creatorAuthorId ||
-    getOwnerId(value)}, []);
+    getOwnerId(value), []);
 
-  const getCreatorName = useCallback((value) => {
+  const getCreatorName = useCallback((value) => 
     value?.creatorName ||
     value?.creator ||
     value?.artistName ||
-    getOwnerName(value)}, []);
+    getOwnerName(value), []);
 
-  const getCreatorImage = useCallback((value) => {
+  const getCreatorImage = useCallback((value) => 
     value?.creatorImage ||
     value?.creatorAuthorImage ||
     value?.artistImage ||
-    getOwnerImage(value)}, []);
+    getOwnerImage(value), []);
 
   useEffect(() => {
     const fetchItemDetails = async () => {
